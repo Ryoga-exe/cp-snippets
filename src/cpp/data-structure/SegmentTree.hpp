@@ -5,7 +5,7 @@ using namespace std;
 
 /// start
 /// @prefix cpSegmentTree
-/// @description SegmentTree : セグメント木 ; math/Monoid と一緒に使う
+/// @description SegmentTree : セグメント木
 /// @isFileTemplate false
 template <class S, auto op, auto e>
 struct SegmentTree {
