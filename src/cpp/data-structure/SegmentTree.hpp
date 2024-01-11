@@ -126,6 +126,7 @@ public:
 private:
     size_t m_size;
     size_t m_leafSize = 1;
+    vector<S> m_segment;
     inline void update(size_t p) {
         while (p >>= 1) {
             m_segment[p] = op(m_segment[2 * p], m_segment[2 * p + 1]);
