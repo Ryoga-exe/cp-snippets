@@ -12,7 +12,7 @@ template <class S, auto op, auto e>
 struct SegmentTree {
 public:
     SegmentTree() : SegmentTree(0) {}
-    explicit SegmentTree(const size_t n) : segtree(vector<S>(n, e())) {}
+    explicit SegmentTree(const size_t n) : SegmentTree(vector<S>(n, e())) {}
     explicit SegmentTree(const vector<S>& v) : m_size(v.size()) {
         for (m_leafSize = 1; m_leafSize < m_size;) {
             m_leafSize <<= 1;
