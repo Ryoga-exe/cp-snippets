@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "strict": true
+  },
+  "imports": {
+    "std/": "https://deno.land/std@0.210.0/"
+  },
+  "tasks": {
+    "generate": "deno run --allow-read --allow-write scripts/generate.ts"
+  },
+  "lint": {
+    "include": ["scripts/"]
+  },
+  "fmt": {
+    "include": ["scripts/"]
+  }
+}

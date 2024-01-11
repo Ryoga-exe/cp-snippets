@@ -1,0 +1,11 @@
+root: "src/"
+output: "build/"
+ignore:
+  - "*.md"
+scope:
+  .cpp: "cpp"
+  .hpp: "cpp"
+  .ipp: "cpp"
+  .c: "c"
+  .h: "c"
+  .py: "py"
