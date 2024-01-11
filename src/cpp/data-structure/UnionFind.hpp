@@ -3,10 +3,10 @@
 #include <vector>
 using namespace std;
 
-/// start
-/// @prefix cpUnionFind
-/// @description UnionFind (Disjoint Set Union) : 素集合データ構造 \n O(𝛼(n))
-/// @isFileTemplate false
+/// start UnionFind
+/// @prefix: cpUnionFind
+/// @description: UnionFind (Disjoint Set Union) : 素集合データ構造 \n O(𝛼(n))
+/// @filetemplate: false
 struct UnionFind {
     vector<int> par;
     UnionFind(const size_t n) : par(n, -1) {}
@@ -32,3 +32,4 @@ struct UnionFind {
         return -par[root(x)];
     };
 };
+/// end UnionFind
