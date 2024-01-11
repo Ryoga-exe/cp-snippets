@@ -1,12 +1,13 @@
 #include <algorithm>
 #include <cassert>
+#include <limits>
 #include <vector>
 using namespace std;
 
-/// start
-/// @prefix cpSegmentTree
-/// @description SegmentTree : セグメント木
-/// @isFileTemplate false
+/// start SegmentTree
+/// @prefix: cpSegmentTree
+/// @description: SegmentTree : セグメント木
+/// @filetemplate: false
 template <class S, auto op, auto e>
 struct SegmentTree {
 public:
@@ -131,3 +132,28 @@ private:
         }
     }
 };
+/// end SegmentTree
+
+/// start RMQ
+/// @prefix: cpRMQ
+/// @description: RangeMaxQuery
+/// @filetemplate: false
+/// @placeholder: int=type
+using RMQ = SegmentTree<int, [](int a, int b){ return max(a, b); }, [](){ return numeric_limits<int>::lowest(); }>;
+/// end RMQ
+
+/// start RmQ
+/// @prefix: cpRmQ
+/// @description: RangeMinQuery
+/// @filetemplate: false
+/// @placeholder: int=type
+using RmQ = SegmentTree<int, [](int a, int b){ return min(a, b); }, [](){ return numeric_limits<int>::infinity(); }>;
+/// end RmQ
+
+/// start RSQ
+/// @prefix: cpRSQ
+/// @description: RangeSumQuery
+/// @filetemplate: false
+/// @placeholder: int=type
+using RSQ = SegmentTree<int, [](int a, int b){ return a + b; }, [](){ return 0; }>;
+/// end RSQ
