@@ -17,24 +17,24 @@ public:
         for (m_leafSize = 1; m_leafSize < m_size;) {
             m_leafSize <<= 1;
         }
-        m_segment.assign(2 * m_leafSize, e());
+        m_data.assign(2 * m_leafSize, e());
         for (int i = 0; i < m_size; i++) {
-            m_segment[m_leafSize + i] = v[i];
+            m_data[m_leafSize + i] = v[i];
         }
         for (int i = m_leafSize - 1; i >= 1; i--) {
-            m_segment[i] = op(m_segment[2 * i], m_segment[2 * i + 1]);
+            m_data[i] = op(m_data[2 * i], m_data[2 * i + 1]);
         }
     }
     void set(size_t p, const S& x) {
         assert(0 <= p && p < m_size);
         p += m_leafSize;
-        m_segment[p] = x;
+        m_data[p] = x;
         update(p);
     }
     void add(size_t p, const S& x) {
         assert(0 <= p && p < m_size);
         p += m_leafSize;
-        m_segment[p] += x;
+        m_data[p] += x;
         update(p);
     }
     S prod(size_t l, size_t r) const {
@@ -42,16 +42,16 @@ public:
         auto sml = e(), smr = e();
         for(l += m_leafSize, r += m_leafSize; l < r; l >>= 1, r >>= 1) {
             if (l & 1) {
-                sml = op(sml, m_segment[l++]);
+                sml = op(sml, m_data[l++]);
             }
             if (r & 1) {
-                smr = op(m_segment[--r], smr);
+                smr = op(m_data[--r], smr);
             }
         }
         return op(sml, smr);
     }
     inline S allProd() const {
-        return m_segment[1];
+        return m_data[1];
     }
     template <class F>
     size_t findFirst(size_t l, const F& check) const {
@@ -66,17 +66,17 @@ public:
             while (l % 2 == 0) {
                 l >>= 1;
             }
-            if (!check(op(sm, m_segment[l]))) {
+            if (!check(op(sm, m_data[l]))) {
                 while (l < m_leafSize) {
                     l <<= 1;
-                    if (check(op(sm, m_segment[l]))) {
-                        sm = op(sm, m_segment[l]);
+                    if (check(op(sm, m_data[l]))) {
+                        sm = op(sm, m_data[l]);
                         l++;
                     }
                 }
                 return l - m_leafSize;
             }
-            sm = op(sm, m_segment[l]);
+            sm = op(sm, m_data[l]);
             l++;
         } while ((static_cast<signed>(l) & -static_cast<signed>(l)) != static_cast<signed>(l));
         return m_size;
@@ -95,19 +95,19 @@ public:
             while (r > 1 && (r % 2)) {
                 r >>= 1;
             }
-            if (!check(op(m_segment[r], sm))) {
+            if (!check(op(m_data[r], sm))) {
                 while (r < m_leafSize) {
                     r <<= 1;
                     r++;
-                    if (check(op(m_segment[r], sm))) {
+                    if (check(op(m_data[r], sm))) {
                         sm = check(
-                            op(m_segment[r], sm));
+                            op(m_data[r], sm));
                         r--;
                     }
                 }
                 return r + 1 - m_leafSize;
             }
-            sm = op(m_segment[r], sm);
+            sm = op(m_data[r], sm);
         } while ((static_cast<signed>(r) & -static_cast<signed>(r)) != static_cast<signed>(r));
         return 0;
     }
@@ -126,10 +126,10 @@ public:
 private:
     size_t m_size;
     size_t m_leafSize = 1;
-    vector<S> m_segment;
+    vector<S> m_data;
     inline void update(size_t p) {
         while (p >>= 1) {
-            m_segment[p] = op(m_segment[2 * p], m_segment[2 * p + 1]);
+            m_data[p] = op(m_data[2 * p], m_data[2 * p + 1]);
         }
     }
 };
