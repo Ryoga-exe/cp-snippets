@@ -111,6 +111,13 @@ public:
         } while ((static_cast<signed>(r) & -static_cast<signed>(r)) != static_cast<signed>(r));
         return 0;
     }
+    inline const S& at(const size_t p) const {
+        assert(0 <= p && p <= m_size);
+        return m_segment[p + m_leafSize];
+    }
+    inline const S& operator[](const size_t p) const {
+        return m_segment[p + m_leafSize];
+    }
     inline explicit operator bool() const noexcept {
         return (m_size != 0);
     }
